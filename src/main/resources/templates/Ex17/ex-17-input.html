@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>入力確認画面</h1>
+    <form th:action="@{/ex17/createEx17}" method="post">
+        名前：<br>
+        <input type="text" name="name"><br>
+        メール：<br>
+        <input type="text" name="mail"><br>
+        性別：<br>
+        <input type="radio" name="gender" value="male" checked>男<br>
+        <input type="radio" name="gender" value="female" >女<br>
+        <br>
+        趣味：<br>
+        <div th:each="hobby : ${hobbyMap}">
+            <input type="checkbox" name="hobbyList" th:value="${hobby.key}" th:text="${hobby.value}">
+        </div>
+        <br>
+        好きな言語：<br>
+        <select name="langageList">
+            <option value="java" selected>java</option>
+            <option value="sql" selected>SQL</option>
+            <option value="linux" selected>Linux</option>
+        </select><br>
+        その他：<br>
+        <textarea name="text" rows="5" cols="50"></textarea><br>
+        <br>
+        <button>送信</button>
+
+    </form>
+    
+</body>
+</html>

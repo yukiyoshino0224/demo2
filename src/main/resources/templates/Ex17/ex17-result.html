@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" xmlns:th="http://www.thymleaf.org">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>入力確認画面</h1>
+    名前：<span th:text="${questionnaire.name}">dummy</span><br>
+    <br>
+    メール：<span th:text="${questionnaire.mail}">dummy</span><br>
+    <br>
+    性別：<span th:text="${questionnaire.gender}">dummy</span><br>
+    <br>
+    趣味： <span th:each="hobby:${questionnaire.hobbyList}">
+        <span th:text="${hobby}">dummy</span><br>
+    <br>
+
+    好きな言語：<span th:text="${questionnaire.langage}">dummy</span><br>
+    <br>
+    その他：<span th:text="${questionnaire.text}">dummy</span><br>
+</body>
+</html>
