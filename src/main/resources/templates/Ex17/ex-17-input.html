@@ -7,28 +7,31 @@
 </head>
 <body>
     <h1>入力確認画面</h1>
-    <form th:action="@{/ex17/createEx17}" method="post">
+    <form th:action="@{/ex17/createEx17}" th:object="${ex17QuestionnaireForm}" method="post">
+        <div th:errors="*{name}" style="color: red;">エラー！</div>
         名前：<br>
-        <input type="text" name="name"><br>
+        <input type="text" name="name" th:field="*{name}"><br>
+        <div th:errors="*{mail}" style="color: red;">エラー！</div>
         メール：<br>
-        <input type="text" name="mail"><br>
+        <input type="text" name="mail" th:field="*{mail}"><br>
+        <div th:errors="*{gender}" style="color: red;">エラー！</div>
         性別：<br>
-        <input type="radio" name="gender" value="male" checked>男<br>
-        <input type="radio" name="gender" value="female" >女<br>
-        <br>
+        <input type="radio" name="gender" value="男性" th:field="*{gender}" checked>男
+        <input type="radio" name="gender" value="女性" th:field="*{gender}" >女<br>
+        <div th:errors="*{hobbyList}" style="color: red;">エラー！</div>
         趣味：<br>
-        <div th:each="hobby : ${hobbyMap}">
-            <input type="checkbox" name="hobbyList" th:value="${hobby.key}" th:text="${hobby.value}">
-        </div>
-        <br>
+        <span th:each="hobby : ${hobbyMap}">
+            <input type="checkbox" name="hobbyList" th:value="${hobby.key}" th:text="${hobby.value}" th:field="*{hobbyList}">
+        </span><br>
         好きな言語：<br>
-        <select name="langageList">
-            <option value="java" selected>java</option>
-            <option value="sql" selected>SQL</option>
-            <option value="linux" selected>Linux</option>
+        <select name="langage">
+            <option value="Java" selected>Java</option>
+            <option value="SQL" >SQL</option>
+            <option value="Linux" >Linux</option>
         </select><br>
+        <div th:errors="*{text}" style="color: red;">エラー！</div>
         その他：<br>
-        <textarea name="text" rows="5" cols="50"></textarea><br>
+        <textarea name="text" rows="5" cols="50" th:field="*{text}"></textarea><br>
         <br>
         <button>送信</button>
 

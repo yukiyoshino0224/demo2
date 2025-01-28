@@ -6,10 +6,21 @@ public class Questionnaire {
     private Integer id;
     private String name;
     private String gender;
+    private String mail;
     private List<String> hobbyList;
     private String langage;
     private String text;
 
+
+    public String getMail() {
+        return mail;
+    }
+    public void setMail(String mail) {
+        this.mail = mail;
+    }
+    public void setLangage(String langage) {
+        this.langage = langage;
+    }
     public Integer getId() {
         return id;
     }

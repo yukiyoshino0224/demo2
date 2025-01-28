@@ -8,6 +8,9 @@ import java.util.Map;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -22,38 +25,47 @@ public class Ex17QuestionnaireController {
     public String index(Model model){
 
         Map<Integer, String>hobbyMap = new LinkedHashMap<>();
-        hobbyMap.put(1, "野球");
-        hobbyMap.put(2, "サッカー");
-        hobbyMap.put(3, "テニス");
+        hobbyMap.put(1, "テニス");
+        hobbyMap.put(2, "野球");
+        hobbyMap.put(3, "ゴルフ");
         model.addAttribute("hobbyMap", hobbyMap);
-
-        // Map<Integer, String>langageMap = new LinkedHashMap<>();
-        // langageMap.put(1, "Java");
-        // langageMap.put(2, "SQL");
-        // langageMap.put(3, "Linux");
-        // model.addAttribute("langageMap", langageMap);
-
         return "Ex17/ex-17-input";
     }
 
+    @ModelAttribute
+    public Ex17QuestionnaireForm setUpForm(){
+        return new Ex17QuestionnaireForm();
+    }
+
     @RequestMapping("/createEx17")
-    public String createEx17(Ex17QuestionnaireForm form, RedirectAttributes redirectAttributes){
+    public String createEx17(
+        @Validated Ex17QuestionnaireForm form
+        ,BindingResult result
+        ,RedirectAttributes redirectAttributes
+        ,Model model
+        ){
+
+        if(result.hasErrors()){
+            return index(model);
+        }
+
         Questionnaire questionnaire = new Questionnaire();
         BeanUtils.copyProperties(form, questionnaire);
 
         List<String> hobbyList = new ArrayList<>();
+
         for(Integer hobbyCode:form.getHobbyList()){
             switch(hobbyCode){
                 case 1:
-                hobbyList.add("野球");
-                break;
-                case 2:
-                hobbyList.add("サッカー");
-                break;
-                case 3:
                 hobbyList.add("テニス");
                 break;
-            }
+                case 2:
+                hobbyList.add("野球");
+                break;
+                case 3:
+                hobbyList.add("ゴルフ");
+                break;
+            }      
         }
         questionnaire.setHobbyList(hobbyList);
 

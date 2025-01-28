@@ -15,10 +15,12 @@
     <br>
     趣味： <span th:each="hobby:${questionnaire.hobbyList}">
         <span th:text="${hobby}">dummy</span><br>
+        </span>
     <br>
 
     好きな言語：<span th:text="${questionnaire.langage}">dummy</span><br>
     <br>
-    その他：<span th:text="${questionnaire.text}">dummy</span><br>
+    その他：<br>
+    <span th:text="${questionnaire.text}">dummy</span>
 </body>
 </html>
